@@ -1,13 +1,57 @@
 from scapy.all import *
+import statistics
+import time
+
 def ping(host):
     print(f"Ping {host}")
-    #COMPLETAR
- return
+    cantSent:int = 0
+    cantRcv:int = 0
+    lost:int = 0
+    minimo:int = 1000
+    maximo:int = 0
+    rtts:list[int] = []    
 
-ping("google.com")
+    for i in range(0,10):   # Cosnulta: Cuantos paquetes tenemos que enviar?
+        pkt = IP(dst="8.8.8.8", ttl=128)/ICMP()
+        cantSent+=1
+        start = time.time()
+        reply = sr1(pkt, timeout=1, verbose=0)
+        end = time.time()
 
-def unpkt(host):
-    ping = IP(dst = host)/TCP(dport=80)
-    reply = sr1(ping, timeout=1)
+        if reply:
+            cantRcv+=1
 
-    if reply 
+            rtt = (end - start) * 1000
+            rtts.append(rtt)
+
+            if rtt > maximo:
+                maximo = rtt
+
+            if rtt < minimo:
+                minimo = rtt
+            
+        else:
+            lost+=1
+    
+    if rtts:
+        promedio = statistics.mean(rtts)
+        st = statistics.stdev(rtts) if len(rtts) > 1 else 0.0
+    else:
+        promedio = st = 0.0
+
+
+    print('Paquetes enviados = ' + str(cantSent))
+    print('Paquetes recibidos = ' + str(cantRcv))
+    print('Paquetes perdidos = ' + str(lost))
+    print('Porcentaje perdidos = ' + str((lost/cantSent)*100) + '%')
+    print('RTT promedio = ' + str(promedio) + 'ms')
+    print('RTT maximo = ' + str(maximo) + 'ms')
+    print('RTT minimo = ' + str(minimo) + 'ms')
+    print('Desvio Standard = ' + str(st))
+
+    return
+
+#ping("google.com")
+
+# No hice una funcion auxiliar como sugiere en el punto (c)
+# Falta cumplir lo que dice en el punto (a)
