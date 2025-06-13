@@ -58,13 +58,18 @@ def ping(host):
         desviacion = statistics.stdev(rtts) if len(rtts) > 1 else 0.0
     else:
         promedio = desviacion = minimo = maximo = 0.0
-
+        
     print("\n--- Estadísticas ---")
     print(f'Paquetes enviados = {cantSent}')
     print(f'Paquetes recibidos = {cantRcv}')
     print(f'Paquetes perdidos = {lost}')
     print(f'Porcentaje perdidos = {(lost / cantSent) * 100:.2f}%')
-    print(f'RTT promedio = {promedio:.2f} ms')
-    print(f'RTT máximo = {maximo:.2f} ms')
-    print(f'RTT mínimo = {minimo:.2f} ms')
-    print(f'Desvío estándar = {desviacion:.2f} ms')
+    
+    if cantRcv != 0:
+        print(f'RTT promedio = {promedio:.2f} ms')
+        print(f'RTT máximo = {maximo:.2f} ms')
+        print(f'RTT mínimo = {minimo:.2f} ms')
+        print(f'Desvío estándar = {desviacion:.2f} ms')
+
+
+ping("8.8.8.8")
