@@ -11,20 +11,20 @@ def ping(host):
     maximo:int = 0
     rtts:list[int] = []    
 
-    for i in range(0,10):  
+    for i in range(0,50):  #mandamos 50 paquetes
         pkt = IP(dst=host, ttl=128)/ICMP()
         cantSent+=1
         start = time.time()
         reply = sr1(pkt, timeout=1, verbose=0)
         end = time.time()
 
-        if reply:
+        if reply: #si se recibio una respuesta...
             cantRcv+=1
 
             rtt = (end - start) * 1000
-            rtts.append(rtt)
+            rtts.append(rtt) #agrego rtt
 
-            if rtt > maximo:
+            if rtt > maximo: 
                 maximo = rtt
 
             if rtt < minimo:
@@ -32,7 +32,7 @@ def ping(host):
                 
             print(f"Paquete {i+1}: Longitud = {len(reply)} bytes, RTT = {round(rtt, 2)} ms, TTL = {reply.ttl}")
             
-        else:
+        else: # Se perdio el paquete
             lost+=1
             print(f"Respuesta {i+1}: Tiempo de espera agotado")
     
@@ -42,7 +42,7 @@ def ping(host):
     else:
         promedio = st = 0.0
 
-    print("\n--- Estadísticas ---")
+    print("\n--- Estadísticas ---") # Exhibe las estadisticas de los paquetes enviados
     print('Paquetes enviados = ' + str(cantSent))
     print('Paquetes recibidos = ' + str(cantRcv))
     print('Paquetes perdidos = ' + str(lost))
