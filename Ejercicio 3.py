@@ -21,7 +21,7 @@ def ping(host):
         10: "Host Administratively Prohibited"
     }
 
-    for i in range(10):
+    for i in range(50):
         pkt = IP(dst=host, ttl=128)/ICMP()
         cantSent += 1
         start = time.time()
@@ -55,21 +55,21 @@ def ping(host):
 
     if rtts:
         promedio = statistics.mean(rtts)
-        desviacion = statistics.stdev(rtts) if len(rtts) > 1 else 0.0
+        desviacion = statistics.stdev(rtts) if len(rtts) > 1 else 0.0    // Calcula el RTT promedio y su Desvio
     else:
         promedio = desviacion = minimo = maximo = 0.0
         
-    print("\n--- Estadísticas ---")
+    print("\n--- Estadísticas ---")    // Exhibe las estadisticas de los paquetes enviados
     print(f'Paquetes enviados = {cantSent}')
     print(f'Paquetes recibidos = {cantRcv}')
     print(f'Paquetes perdidos = {lost}')
     print(f'Porcentaje perdidos = {(lost / cantSent) * 100:.2f}%')
     
-    if cantRcv != 0:
+    if cantRcv != 0:    // A menos que se hayan perdido todos los paquetes, exhibe estas estadisticas en la terminal
         print(f'RTT promedio = {promedio:.2f} ms')
         print(f'RTT máximo = {maximo:.2f} ms')
         print(f'RTT mínimo = {minimo:.2f} ms')
         print(f'Desvío estándar = {desviacion:.2f} ms')
 
 
-ping("8.8.8.8")
+ping("8.8.8.8")    // Ejemplo de entrada
