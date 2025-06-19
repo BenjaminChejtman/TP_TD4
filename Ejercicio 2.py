@@ -47,10 +47,12 @@ def ping(host):
     print('Paquetes recibidos = ' + str(cantRcv))
     print('Paquetes perdidos = ' + str(lost))
     print('Porcentaje perdidos = ' + str((lost/cantSent)*100) + '%')
-    print('RTT promedio = ' + str(promedio) + 'ms')
-    print('RTT maximo = ' + str(maximo) + 'ms')
-    print('RTT minimo = ' + str(minimo) + 'ms')
-    print('Desvio Standard = ' + str(st))
+ 
+    if cantRcv != 0:    # A menos que se hayan perdido todos los paquetes, exhibe estas estadisticas en la terminal
+        print(f'RTT promedio = {promedio:.2f} ms')
+        print(f'RTT máximo = {maximo:.2f} ms')
+        print(f'RTT mínimo = {minimo:.2f} ms')
+        print(f'Desvío estándar = {desviacion:.2f} ms')
 
     return
 
