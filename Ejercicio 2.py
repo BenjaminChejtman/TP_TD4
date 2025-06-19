@@ -14,9 +14,9 @@ def ping(host):
     for i in range(0,50):  #mandamos 50 paquetes
         pkt = IP(dst=host, ttl=128)/ICMP()
         cantSent+=1
-        start = time.time()
-        reply = sr1(pkt, timeout=1, verbose=0)
-        end = time.time()
+        start = time.time() #empezamos a contar el tiempo
+        reply = sr1(pkt, timeout=1, verbose=0) 
+        end = time.time() #terminamos de contar
 
         if reply: #si se recibio una respuesta...
             cantRcv+=1
@@ -38,7 +38,7 @@ def ping(host):
     
     if rtts:
         promedio = statistics.mean(rtts)
-        st = statistics.stdev(rtts) if len(rtts) > 1 else 0.0
+        st = statistics.stdev(rtts) if len(rtts) > 1 else 0.0  #usamos la libreria statistics para el desvio standard
     else:
         promedio = st = 0.0
 
