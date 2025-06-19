@@ -55,7 +55,7 @@ def ping(host):
 
     if rtts:
         promedio = statistics.mean(rtts)
-        desviacion = statistics.stdev(rtts) if len(rtts) > 1 else 0.0    // Calcula el RTT promedio y su Desvio
+        desviacion = statistics.stdev(rtts) if len(rtts) > 1 else 0.0    # Calcula el RTT promedio y su Desvio
     else:
         promedio = desviacion = minimo = maximo = 0.0
         
