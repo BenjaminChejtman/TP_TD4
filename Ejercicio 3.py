@@ -59,17 +59,17 @@ def ping(host):
     else:
         promedio = desviacion = minimo = maximo = 0.0
         
-    print("\n--- Estadísticas ---")    // Exhibe las estadisticas de los paquetes enviados
+    print("\n--- Estadísticas ---")    # Exhibe las estadisticas de los paquetes enviados
     print(f'Paquetes enviados = {cantSent}')
     print(f'Paquetes recibidos = {cantRcv}')
     print(f'Paquetes perdidos = {lost}')
     print(f'Porcentaje perdidos = {(lost / cantSent) * 100:.2f}%')
     
-    if cantRcv != 0:    // A menos que se hayan perdido todos los paquetes, exhibe estas estadisticas en la terminal
+    if cantRcv != 0:    # A menos que se hayan perdido todos los paquetes, exhibe estas estadisticas en la terminal
         print(f'RTT promedio = {promedio:.2f} ms')
         print(f'RTT máximo = {maximo:.2f} ms')
         print(f'RTT mínimo = {minimo:.2f} ms')
         print(f'Desvío estándar = {desviacion:.2f} ms')
 
 
-ping("8.8.8.8")    // Ejemplo de entrada
+ping("8.8.8.8")    # Ejemplo de entrada
